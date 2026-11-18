@@ -2,7 +2,7 @@
 ```
 text
 pathsnap/
-├── README.md                  # install, run, deploy (2 laptops)<BR>
+├── README.md                  # install, run, deploy (2 laptops)
 ├── requirements.txt
 ├── .gitignore                 # exclude secrets, raw data if large
 ├── configs/
