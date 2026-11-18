@@ -1,4 +1,6 @@
 # ML-Hackathon
+```
+text
 pathsnap/
 ├── README.md                  # install, run, deploy (2 laptops)<BR>
 ├── requirements.txt
@@ -39,3 +41,4 @@ pathsnap/
 ├── ui/                        # frontend for Laptop 2
 ├── scripts/                   # run_all.sh, export_artifacts.py
 └── report/                    # final PDF + screenshots
+```
