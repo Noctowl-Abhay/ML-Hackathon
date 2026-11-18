@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PathSnap | Route Reconstruction</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+:root{color-scheme:dark;--bg:#071324;--panel:#10243b;--line:#2b4562;--muted:#9ab1c8;--text:#ecf3fa;--teal:#38e0c4;--orange:#ffb766}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,'Segoe UI',Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#183353,var(--bg) 48%);color:var(--text)}
+header{padding:21px 27px;border-bottom:1px solid #2b425f;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:27px;letter-spacing:-.8px}.logo span{color:var(--teal)}.subtitle{color:var(--muted);font-size:13px;margin-top:5px}
+.wrap{max-width:1650px;margin:auto;padding:22px;display:grid;grid-template-columns:315px minmax(0,1fr);gap:18px}
+.panel{background:#102238;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 12px 26px #0004}
+label{display:block;color:#a9c3de;font-size:12px;text-transform:uppercase;font-weight:700;letter-spacing:1px;margin:17px 0 8px}
+input,select{background:#09192d;border:1px solid #365172;border-radius:9px;color:white;width:100%;padding:12px;font-size:15px;outline-color:var(--teal)}
+button{display:block;width:100%;margin-top:16px;border:0;background:linear-gradient(110deg,#2bd3b5,#43aceb);color:#05243c;padding:13px 12px;border-radius:9px;font-weight:800;cursor:pointer;font-size:15px}button:disabled{opacity:.5;cursor:wait}
+.badge{display:inline-block;padding:6px 9px;border-radius:99px;background:#163f40;color:#75ebd6;font-size:12px;font-weight:700}
+.metric{padding:12px 0;border-bottom:1px solid #27405c}.metric b{font-size:25px;display:block;margin-top:5px}.metric small{color:var(--muted)}
+#map{height:min(75vh,770px);min-height:480px;border-radius:12px;overflow:hidden;background:#12344d}
+.notice{line-height:1.55;color:#b0c6db;font-size:13px;margin-top:18px}.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;color:#c7d6e5;font-size:13px}.dot{display:inline-block;width:23px;height:4px;vertical-align:middle;border-radius:5px;margin-right:7px}
+#error{white-space:pre-wrap;font-size:13px;color:#ffad9b;line-height:1.45;margin-top:12px}.status{color:#9ab1c8;font-size:12px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}.panel{padding:15px}#map{height:65vh;min-height:400px}}
+</style></head><body>
+<header><div><div class="logo">Path<span>Snap</span> <span style="color:#b5cbe0;font-size:16px;font-weight:600">/ Reconstruction</span></div><div class="subtitle">GPS map matching · Logistic Regression + directed HMM/Viterbi · evaluator interface</div></div><span class="badge" id="badge">API disconnected</span></header>
+<div class="wrap"><aside class="panel"><div style="font-weight:800;font-size:19px">Evaluation Console</div><div class="subtitle">The model and reference routes remain on Laptop 1.</div>
+<label for="api">Laptop 1 API address</label><input id="api" spellcheck="false" value="http://127.0.0.1:8000" placeholder="http://192.168.1.10:8000" />
+<button id="connect">Connect &amp; load trips</button><label for="trip">Select evaluator trip</label><select id="trip"><option>Connect to API first</option></select>
+<button id="run" disabled>▶ Reconstruct Route</button><p id="error"></p>
+<div class="metric"><small>Classifier Top-1 (directed)</small><b id="base">—</b></div>
+<div class="metric"><small>HMM/Viterbi Top-1 (directed)</small><b id="hmm">—</b></div>
+<div class="metric"><small>HMM/Viterbi Top-1 (undirected)</small><b id="undir">—</b></div>
+<div class="metric"><small>Disconnected road-arc switches</small><b id="broken">—</b></div>
+<div class="metric"><small>Changed candidate predictions</small><b id="changed">—</b></div>
+<p class="notice">Metrics use reference-route-aligned proxy labels and are not complete route-level accuracy. The API returns only aggregate metrics; reference routes and ground-truth labels stay server-side.</p></aside>
+<main class="panel"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px"><div><b style="font-size:20px">Trajectory Map</b><div class="subtitle">Original GPS observations compared with reconstructed road geometry</div></div><div class="status" id="runtime">Choose a trip to begin</div></div>
+<div id="map"></div><div class="legend"><span><i class="dot" style="background:#60a5fa"></i> Raw GPS trace</span><span><i class="dot" style="background:#22dbb8"></i> Predicted connected road geometry</span></div>
+<div class="notice">You can toggle layers in the map. This is a standalone integration demo: point your existing UI's API calls at <code>/api/trips</code> and <code>/api/reconstruct/{trip_id}</code> to reuse its current design.</div></main></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const $=id=>document.getElementById(id);let map=null,layers=null;
+function getBase(){return $('api').value.replace(/\/+$/,'')}
+function setErr(t){$('error').textContent=t||''}
+function setText(id,t){$(id).textContent=t}
+function pct(x){return (x==null||!Number.isFinite(x))?'—':(100*x).toFixed(2)+'%'}
+function showMap(geo){if(!window.L){throw new Error('Leaflet did not load. Check that Laptop 2 can access the Leaflet CDN or bundle Leaflet locally.');}
+if(!map){map=L.map('map').setView([12.97,77.59],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map)}
+if(layers){map.removeLayer(layers)}layers=L.featureGroup().addTo(map);let visible=[];
+for(const f of geo.features||[]){const name=f.properties?.layer;const color=name==='raw_gps'?'#60a5fa':'#23e0bd';const layer=L.geoJSON(f,{style:{color,weight:name==='raw_gps'?3:5,opacity:name==='raw_gps'?.6:1}}).addTo(layers);visible.push(layer)}
+try {const b=layers.getBounds();if(b.isValid())map.fitBounds(b.pad(.08))}catch(e){}
+setTimeout(()=>map.invalidateSize(),200);
+}
+async function connect(){setErr('');$('connect').disabled=true;try{const r=await fetch(getBase()+'/api/trips');if(!r.ok)throw Error('HTTP '+r.status);const v=await r.json();const trips=v.trips||[];$('trip').innerHTML='';for(const t of trips){const opt=document.createElement('option');opt.value=t.id;opt.textContent=`${t.id} — ${t.gps_points.toLocaleString()} GPS points`;$('trip').appendChild(opt)}$('run').disabled=!trips.length;setText('badge','API connected · '+trips.length+' trips');}catch(e){setErr('Cannot connect to Laptop 1 API: '+e.message+'\nConfirm the server is running and that both laptops can reach each other.')}finally{$('connect').disabled=false}}
+async function run(){setErr('');$('run').disabled=true;setText('runtime','Running model + Viterbi reconstruction…');try{let r=await fetch(getBase()+'/api/reconstruct/'+$('trip').value);let j=await r.json();if(!r.ok)throw Error(j.detail||('HTTP '+r.status));showMap(j.geojson);setText('base',pct(j.metrics?.baseline?.directed));setText('hmm',pct(j.metrics?.hmm?.directed));setText('undir',pct(j.metrics?.hmm?.undirected));setText('broken',j.stats?.disconnected_arc_switches??'—');setText('changed',pct(j.stats?.changed_pct));setText('runtime',`${j.trip_id} · ${j.stats?.gps_points} GPS points · ${j.elapsed_seconds}s`);}catch(e){setErr('Reconstruction failed: '+e.message);setText('runtime','Failed');}finally{$('run').disabled=false}}
+$('connect').addEventListener('click',connect);$('run').addEventListener('click',run);connect();
+</script></body></html>

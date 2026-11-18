@@ -1,0 +1,7 @@
+{
+  "partition": "student_test",
+  "all_gps_points": 19160,
+  "candidate_miss_rate_before_label_filter": 0.0041231732776617624,
+  "candidate_recall_before_label_filter": 0.9958768267223382,
+  "definition": "Reference-aligned road arc absent among generated candidates. BEFORE label_usable filtering."
+}

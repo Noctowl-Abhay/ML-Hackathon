@@ -1,0 +1,102 @@
+[
+  {
+    "trip_id": "00000000",
+    "eligible_points": 2496,
+    "classifier_top1_proxy": 0.9395032051282052,
+    "hmm_top1_proxy": 0.9551282051282052,
+    "sequence_match_f1": 0.7440860215053764,
+    "disconnected_arc_switches": 2,
+    "connected_arc_switches": 222,
+    "elapsed_seconds": 0.551
+  },
+  {
+    "trip_id": "00000007",
+    "eligible_points": 1327,
+    "classifier_top1_proxy": 0.9336850037678975,
+    "hmm_top1_proxy": 0.9706103993971364,
+    "sequence_match_f1": 0.952755905511811,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 128,
+    "elapsed_seconds": 0.251
+  },
+  {
+    "trip_id": "00000009",
+    "eligible_points": 1018,
+    "classifier_top1_proxy": 0.8752455795677799,
+    "hmm_top1_proxy": 0.8978388998035364,
+    "sequence_match_f1": 0.8562753036437247,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 404,
+    "elapsed_seconds": 0.318
+  },
+  {
+    "trip_id": "00000040",
+    "eligible_points": 2946,
+    "classifier_top1_proxy": 0.927019687712152,
+    "hmm_top1_proxy": 0.9562118126272913,
+    "sequence_match_f1": 0.800518134715026,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 379,
+    "elapsed_seconds": 0.594
+  },
+  {
+    "trip_id": "00000052",
+    "eligible_points": 262,
+    "classifier_top1_proxy": 0.950381679389313,
+    "hmm_top1_proxy": 1.0,
+    "sequence_match_f1": 0.9893617021276596,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 82,
+    "elapsed_seconds": 0.077
+  },
+  {
+    "trip_id": "00000056",
+    "eligible_points": 3919,
+    "classifier_top1_proxy": 0.891298800714468,
+    "hmm_top1_proxy": 0.9589180913498342,
+    "sequence_match_f1": 0.8990071893187265,
+    "disconnected_arc_switches": 2,
+    "connected_arc_switches": 1230,
+    "elapsed_seconds": 1.094
+  },
+  {
+    "trip_id": "00000065",
+    "eligible_points": 767,
+    "classifier_top1_proxy": 0.8213820078226858,
+    "hmm_top1_proxy": 0.8670143415906127,
+    "sequence_match_f1": 0.7967032967032966,
+    "disconnected_arc_switches": 1,
+    "connected_arc_switches": 147,
+    "elapsed_seconds": 0.226
+  },
+  {
+    "trip_id": "00000076",
+    "eligible_points": 1472,
+    "classifier_top1_proxy": 0.8790760869565217,
+    "hmm_top1_proxy": 0.9171195652173914,
+    "sequence_match_f1": 0.7632950990615225,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 384,
+    "elapsed_seconds": 0.532
+  },
+  {
+    "trip_id": "00000077",
+    "eligible_points": 3888,
+    "classifier_top1_proxy": 0.6926440329218106,
+    "hmm_top1_proxy": 0.7582304526748971,
+    "sequence_match_f1": 0.45079899074852814,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 635,
+    "elapsed_seconds": 1.071
+  },
+  {
+    "trip_id": "00000091",
+    "eligible_points": 874,
+    "classifier_top1_proxy": 0.8398169336384439,
+    "hmm_top1_proxy": 0.8993135011441648,
+    "sequence_match_f1": 0.6715116279069767,
+    "disconnected_arc_switches": 0,
+    "connected_arc_switches": 230,
+    "elapsed_seconds": 0.243
+  }
+]

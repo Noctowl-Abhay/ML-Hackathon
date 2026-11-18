@@ -1,0 +1,20 @@
+{
+  "cv_top1_oof": 0.8511844112641614,
+  "cv_accuracy_oof": 0.9437717505865245,
+  "cv_macro_f1_oof": 0.9021976292166204,
+  "cv_binary_f1_oof": 0.8384320614451922,
+  "cv_log_loss_oof": 0.15599202052898767,
+  "confusion_matrix": [
+    [
+      827432,
+      28042
+    ],
+    [
+      30269,
+      151298
+    ]
+  ],
+  "oof_inference_and_fit_seconds": 22.353465658999994,
+  "note": "Grouped OOF performance on training trips; model chosen using these same grouped folds.",
+  "final_fit_seconds": 4.531220636999933
+}

@@ -1,0 +1,19 @@
+{
+  "selected_model": "tuned_full80",
+  "source_artifact": "artifacts/logistic_regression_tuned/model_all_80.joblib",
+  "selected_from": "student_test_10 (NOT evaluator_test)",
+  "primary_selection_metric": "conditional observation-level Top-1",
+  "student_metrics": {
+    "top1_accuracy": "0.8592440297327218",
+    "macro_f1": "0.9102796073580441",
+    "log_loss": "0.14311337292726953",
+    "inference_seconds": "0.06381148299988126",
+    "candidate_rows": "112748",
+    "trips": "10"
+  },
+  "team_selection_rationale": "Team selection based on student-test Top-1, Macro-F1, CV stability, and efficiency; review before publishing.",
+  "feature_count": 25,
+  "model_sha256": "3f10a93b23c13584a2a60ae93edb7634c749e07133dfa98317b26669a921b0ad",
+  "feature_config_sha256": "8afc841256ae5bd4cfd5b90d7098401200af8af9cf9b283fa33a6a82b878c262",
+  "selected_utc": "2026-11-18T19:03:55.602560+00:00"
+}

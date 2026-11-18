@@ -1,0 +1,44 @@
+{
+  "C": 0.05939820799766786,
+  "class_weight": null,
+  "objective": "mean conditional Top-1 across 5 grouped training-only folds",
+  "cv_mean_top1": 0.8505326287965621,
+  "trials_total": 24,
+  "seed": 42,
+  "n_folds": 5,
+  "feature_cols": [
+    "dist_m",
+    "cand_rank",
+    "dist_minus_min_m",
+    "dist_ratio_min",
+    "n_cands_in_radius",
+    "frac_along",
+    "frac_to_end",
+    "arc_length_m",
+    "heading_diff_deg",
+    "heading_diff_undirected_deg",
+    "heading_valid",
+    "speed_mps",
+    "gps_step_m",
+    "dt_s",
+    "prev_step_m",
+    "next_step_m",
+    "prev_dt_s",
+    "next_dt_s",
+    "arc_bearing_deg",
+    "degree_from",
+    "degree_to",
+    "is_fallback",
+    "endpoint_dist_m",
+    "movement_valid",
+    "projection_outside"
+  ],
+  "search": {
+    "C": "log-uniform [0.001,100]",
+    "class_weight": [
+      "none",
+      "balanced"
+    ]
+  },
+  "training_partition": "train (80 trips)"
+}

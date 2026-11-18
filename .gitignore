@@ -26,3 +26,28 @@ data/processed/
 # System files
 .DS_Store
 Thumbs.db
+
+# PathSnap privacy + output exclusions (pre-submission)
+/.pathsnap_backups/
+/venv2/
+/.venv/
+/.venv_pathsnap/
+/Data/
+/outputs/
+/artifacts/
+/**/__pycache__/
+*.pyc
+*.pyo
+*.log
+*.db
+*.sqlite
+*.sqlite3
+*.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*_backup.py
+*backup*.py
+# keep model weights ONLY inside deployment/; no raw evaluator data in Git

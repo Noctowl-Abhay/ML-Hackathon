@@ -1,0 +1,33 @@
+{
+  "feature_cols": [
+    "dist_m",
+    "cand_rank",
+    "dist_minus_min_m",
+    "dist_ratio_min",
+    "n_cands_in_radius",
+    "frac_along",
+    "frac_to_end",
+    "arc_length_m",
+    "heading_diff_deg",
+    "heading_diff_undirected_deg",
+    "heading_valid",
+    "speed_mps",
+    "gps_step_m",
+    "dt_s",
+    "prev_step_m",
+    "next_step_m",
+    "prev_dt_s",
+    "next_dt_s",
+    "arc_bearing_deg",
+    "degree_from",
+    "degree_to",
+    "is_fallback",
+    "endpoint_dist_m",
+    "movement_valid",
+    "projection_outside"
+  ],
+  "k": 8,
+  "radius_m": 50.0,
+  "label_cutoff_m": 30.0,
+  "label_notes": "Labels are derived by monotonic route alignment. They are not independently verified GPS-point truth."
+}
