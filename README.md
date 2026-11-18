@@ -1,44 +1,101 @@
 # ML-Hackathon
 ```
-text
 pathsnap/
-├── README.md                  # install, run, deploy (2 laptops)
+├── README.md
 ├── requirements.txt
-├── .gitignore                 # exclude secrets, raw data if large
+├── .gitignore
+├── .env.example
+│
 ├── configs/
-│   ├── data.yaml              # paths, CRS, K, radius
-│   ├── models.yaml            # per-model configs + seeds
-│   ├── bayes_opt.yaml         # search space, n_trials
-│   └── hmm.yaml               # decoder params
+│   ├── data.yaml
+│   ├── models.yaml
+│   ├── bayes_opt.yaml
+│   └── hmm.yaml
+│
 ├── data/
-│   ├── raw/                   # train / student_test (NOT evaluator labels in UI repo)
-│   └── processed/             # candidates, features
+│   ├── raw/
+│   │   ├── train/
+│   │   └── student_test/
+│   └── processed/
+│
 ├── src/
-│   ├── data/                  # loaders, cleaning, projection, splits
-│   ├── candidates/            # candidate generation
-│   ├── features/              # feature engineering
-│   ├── models/                # one training script per model
-│   ├── evaluation/            # metrics, confusion matrices, plots
-│   ├── tuning/                # Bayesian optimisation (Optuna etc.)
-│   ├── hmm/                   # emission, transition, viterbi
-│   ├── pipeline.py            # trip_id -> predicted route (no labels)
-│   └── viz/                   # Folium map builders
+│   ├── __init__.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── loader.py
+│   │   ├── preprocessing.py
+│   │   ├── projection.py
+│   │   └── splits.py
+│   │
+│   ├── candidates/
+│   │   ├── __init__.py
+│   │   └── generate.py
+│   │
+│   ├── features/
+│   │   ├── __init__.py
+│   │   └── extract.py
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── logistic_regression.py
+│   │   ├── knn.py
+│   │   ├── decision_tree.py
+│   │   ├── random_forest.py
+│   │   └── gradient_boosting.py
+│   │
+│   ├── evaluation/
+│   │   ├── __init__.py
+│   │   ├── metrics.py
+│   │   └── plots.py
+│   │
+│   ├── tuning/
+│   │   ├── __init__.py
+│   │   └── optuna_tuning.py
+│   │
+│   ├── hmm/
+│   │   ├── __init__.py
+│   │   ├── emission.py
+│   │   ├── transition.py
+│   │   └── viterbi.py
+│   │
+│   ├── viz/
+│   │   ├── __init__.py
+│   │   └── folium_map.py
+│   │
+│   └── pipeline.py
+│
 ├── notebooks/
 │   ├── 01_eda.ipynb
 │   ├── 02_model_comparison.ipynb
 │   └── 03_hmm_analysis.ipynb
+│
 ├── results/
-│   ├── logs/                  # experiment logs, seeds
-│   ├── tables/                # CSVs for the report
+│   ├── logs/
+│   ├── tables/
 │   ├── figures/
-│   ├── maps/                  # exported Folium HTML
-│   └── optuna/                # trial history
-├── artifacts/                 # saved model, scaler, hmm config
+│   ├── maps/
+│   └── optuna/
+│
+├── artifacts/
+│
 ├── api/
-│   ├── main.py                # FastAPI app, model loading
-│   ├── routes.py              # /trips, /predict
-│   └── evaluator.py           # server-side ground truth scoring only
-├── ui/                        # frontend for Laptop 2
-├── scripts/                   # run_all.sh, export_artifacts.py
-└── report/                    # final PDF + screenshots
+│   ├── __init__.py
+│   ├── main.py
+│   ├── routes.py
+│   └── evaluator.py
+│
+├── ui/
+│   ├── app.py
+│   └── requirements.txt
+│
+├── scripts/
+│   ├── run_all.sh
+│   └── export_artifacts.py
+│
+├── tests/
+│   ├── test_candidates.py
+│   ├── test_features.py
+│   └── test_viterbi.py
+│
+└── report/
 ```
