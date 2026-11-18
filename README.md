@@ -1,6 +1,6 @@
 # ML-Hackathon
 pathsnap/
-├── README.md                  # install, run, deploy (2 laptops)
+├── README.md                  # install, run, deploy (2 laptops)<BR>
 ├── requirements.txt
 ├── .gitignore                 # exclude secrets, raw data if large
 ├── configs/
