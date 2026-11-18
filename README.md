@@ -2,7 +2,7 @@
 
 **PES University · UE24CS352A Machine Learning Hackathon · Technical Report Revision 2.0 (18–19 November 2026)**
 
-> Team: _[Team member names and SRNs — complete before submission]_
+
 > Repository: https://github.com/Noctowl-Abhay/ML-Hackathon
 
 PathSnap takes noisy GPS observations (longitude, latitude, time) and a directed road network, decides which road segment each observation belongs to, and reconstructs a physically plausible vehicle route. It does this by turning map matching into **binary candidate classification (Logistic Regression) followed by sequential route decoding (HMM/Viterbi)**, and serves the result through a **FastAPI** backend and a browser UI that runs on a second laptop.
