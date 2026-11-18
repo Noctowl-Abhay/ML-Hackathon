@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PathSnap · Route reconstruction</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar">
+    <h1>PathSnap</h1>
+    <p class="tag">Pick a trip. The server reconstructs the route from noisy GPS.</p>
+    <form id="apiForm" class="api" autocomplete="off">
+      <span id="dot" class="dot" aria-hidden="true"></span>
+      <label for="apiUrl" class="sr">API address</label>
+      <input id="apiUrl" type="text" spellcheck="false">
+      <button type="submit">Connect</button>
+    </form>
+  </header>
+
+  <main class="layout">
+    <aside class="trips">
+      <h2>Evaluation trips</h2>
+      <div id="tripList" class="trip-list" role="group" aria-label="Evaluation trips"></div>
+      <p id="status" class="status" role="status">Not connected.</p>
+    </aside>
+
+    <section class="stage-wrap">
+      <div class="toolbar">
+        <label><input type="checkbox" id="lyGps" checked> GPS observations</label>
+        <label><input type="checkbox" id="lyRoute" checked> Predicted route</label>
+        <button id="resetView" type="button">Reset view</button>
+      </div>
+      <div class="stage">
+        <svg id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-label="Trip map"></svg>
+        <p id="empty" class="empty">Select a trip to run the prediction.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><i class="sw gps"></i>GPS observation</li>
+          <li><i class="sw route"></i>Predicted route</li>
+          <li><i class="sw start"></i>Start</li>
+          <li><i class="sw end"></i>End</li>
+        </ul>
+      </div>
+      <dl id="metrics" class="metrics"></dl>
+    </section>
+  </main>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
